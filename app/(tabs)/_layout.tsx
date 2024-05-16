@@ -31,9 +31,8 @@ export default function TabLayout() {
           title: 'Početna',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerTitle: 'Kaladont',
-          headerTintColor: Colors[colorScheme ?? 'light'].background,
+          headerTintColor: Colors[colorScheme ?? 'light'].tint,
           headerStyle: {
-            backgroundColor: Colors[colorScheme ?? 'light'].tint,
             height: 110,
           },
           headerTitleStyle: {
