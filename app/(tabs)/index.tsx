@@ -1,17 +1,20 @@
+import OnlineUsers from '@/components/home/OnlineUsers';
 import Button from '@/components/ui/Button';
-import { View } from '@/components/ui/Themed';
+import { Text, View } from '@/components/ui/Themed';
 import { StyleSheet } from 'react-native';
 
 
 export default function TabOneScreen() {
+  const startGameHandler = () => {
+    console.log('startGameHandler')
+  }
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Press me"
-        onPress={() => console.log('Button pressed')}
-      />
-    </View>
+      <Button title="Započni novu igru" onPress={startGameHandler} />
+      <OnlineUsers />
+
+    </View >
   );
 }
 
@@ -21,13 +24,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+
 });

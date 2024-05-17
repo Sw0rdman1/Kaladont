@@ -16,7 +16,10 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, color }) => {
 
     return (
         <TouchableOpacity
-            style={[styles.button, { backgroundColor }]} onPress={onPress}>
+            activeOpacity={0.7}
+            style={[styles.button, { backgroundColor }]}
+            onPress={onPress}
+        >
             <Text style={styles.buttonText}>{title}</Text>
         </TouchableOpacity>
     )
@@ -26,15 +29,15 @@ export default Button
 
 const styles = StyleSheet.create({
     button: {
-        width: '100%',
-        padding: 10,
-        borderRadius: 10,
+        width: 270,
+        height: 53,
+        borderRadius: 28,
         alignItems: 'center',
         justifyContent: 'center',
     },
     buttonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
     },
 })
