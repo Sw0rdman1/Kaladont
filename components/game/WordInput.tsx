@@ -3,7 +3,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useEffect, useState } from 'react';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
-import { View } from '../ui/Themed';
+import { Text, View } from '../ui/Themed';
+import { checkIfWordExists } from '@/utils/wordCheck';
 
 interface Props {
     newWordHandler: (word: string) => void
@@ -14,15 +15,21 @@ const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
     const lastTwoLetters = lastWord.slice(-2)
     const [word, setWord] = useState('')
     const colorScheme = useColorScheme();
+    const [error, setError] = useState<string | null>(null)
 
-    const disabled = word.trim().length === 0
+    const disabled = word.trim().length < 3
+
+    const borderColor = error ? 'red' : 'gray'
+    const iconColor = error ? 'red' : disabled ? "gray" : Colors[colorScheme ?? 'light'].tint
+
 
     useEffect(() => {
         setWord(lastTwoLetters)
     }, [lastTwoLetters])
 
     const handleInputChange = (text: string) => {
-        // Ensure the first two letters are always the same
+        setError(null)
+
         if (text.slice(0, 2) === lastTwoLetters) {
             setWord(text)
         } else {
@@ -32,27 +39,38 @@ const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
 
     const handleSubmit = () => {
         if (word.length < 3) return
+
+        if (!checkIfWordExists(word.toLowerCase())) {
+            setError('Uneta reč ne postoji!')
+            console.log('Word does not exist')
+            return
+        }
+
         newWordHandler(word)
         setWord(lastTwoLetters)
     }
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={[styles.input, { color: Colors[colorScheme ?? 'light'].text }]}
-                value={word}
-                onChangeText={handleInputChange}
-                placeholder="Enter a word"
-                placeholderTextColor="gray"
-                autoCapitalize="characters"
-                autoCorrect={false}
-                returnKeyType="done"
-                onSubmitEditing={handleSubmit}
-                selection={{ start: word.length, end: word.length }}  // Ensure the cursor is at the end
-            />
-            <TouchableOpacity disabled={disabled} style={styles.button} onPress={handleSubmit}>
-                <FontAwesome name="paper-plane" size={24} color={disabled ? "gray" : Colors[colorScheme ?? 'light'].tint} />
-            </TouchableOpacity>
+            <Text style={styles.errorMessage}>{error}</Text>
+
+            <View style={[styles.inputContainer, { borderColor }]}>
+                <TextInput
+                    style={[styles.input, { color: Colors[colorScheme ?? 'light'].text }]}
+                    value={word}
+                    onChangeText={handleInputChange}
+                    placeholder="Enter a word"
+                    placeholderTextColor="gray"
+                    autoCapitalize="characters"
+                    autoCorrect={false}
+                    returnKeyType="done"
+                    onSubmitEditing={handleSubmit}
+                    selection={{ start: word.length, end: word.length }}  // Ensure the cursor is at the end
+                />
+                <TouchableOpacity disabled={disabled} style={styles.button} onPress={handleSubmit}>
+                    <FontAwesome name="paper-plane" size={24} color={iconColor} />
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -61,13 +79,16 @@ export default WordInput
 
 const styles = StyleSheet.create({
     container: {
+        alignItems: 'center',
+        width: '100%',
+        height: 120,
+    },
+    inputContainer: {
         marginHorizontal: 30,
-        marginBottom: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: 'gray',
         paddingLeft: 10,
         borderRadius: 20,
     },
@@ -82,5 +103,11 @@ const styles = StyleSheet.create({
         height: 45,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    errorMessage: {
+        color: 'red',
+        marginBottom: 5,
+        fontSize: 18,
+        height: 30,
     }
 })
