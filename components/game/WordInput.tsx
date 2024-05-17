@@ -5,16 +5,24 @@ import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
 import { View } from '../ui/Themed';
 
-const WordInput = () => {
+interface Props {
+    newWordHandler: (word: string) => void
+}
+
+const WordInput: React.FC<Props> = ({ newWordHandler }) => {
     const [word, setWord] = useState('')
     const colorScheme = useColorScheme();
+
+    const disabled = word.trim().length === 0
 
     const handleInputChange = (text: string) => {
         setWord(text.trim())
     }
 
     const handleSubmit = () => {
-        // Handle submit logic here
+        if (!word) return
+        newWordHandler(word)
+        setWord('')
     }
 
     return (
@@ -25,9 +33,13 @@ const WordInput = () => {
                 onChangeText={handleInputChange}
                 placeholder="Enter a word"
                 placeholderTextColor="gray"
+                autoCapitalize="characters"
+                autoCorrect={false}
+                returnKeyType="done"
+                onSubmitEditing={handleSubmit}
             />
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <FontAwesome name="paper-plane" size={24} color={Colors[colorScheme ?? 'light'].tint} />
+            <TouchableOpacity disabled={disabled} style={styles.button} onPress={handleSubmit}>
+                <FontAwesome name="paper-plane" size={24} color={disabled ? "gray" : Colors[colorScheme ?? 'light'].tint} />
             </TouchableOpacity>
         </View>
     )
@@ -37,10 +49,11 @@ export default WordInput
 
 const styles = StyleSheet.create({
     container: {
+        marginHorizontal: 30,
+        marginBottom: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: 30,
         borderWidth: 1,
         borderColor: 'gray',
         paddingLeft: 10,

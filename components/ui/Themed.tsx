@@ -52,7 +52,7 @@ export function KeyboardAvoidingView(props: KeyboardAvoidingViewProps) {
   return (
     <DefaultKeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={30}
+      keyboardVerticalOffset={90}
       style={[{ backgroundColor, flex: 1, width: "100%" }, style]} {...otherProps}
     >
       {children}
