@@ -12,13 +12,13 @@ interface Props {
 }
 
 const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
+    const colorScheme = useColorScheme();
+
     const lastTwoLetters = lastWord.slice(-2)
     const [word, setWord] = useState('')
-    const colorScheme = useColorScheme();
     const [error, setError] = useState<string | null>(null)
 
     const disabled = word.trim().length < 3
-
     const borderColor = error ? 'red' : 'gray'
     const iconColor = error ? 'red' : disabled ? "gray" : Colors[colorScheme ?? 'light'].tint
 
