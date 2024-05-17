@@ -1,15 +1,16 @@
-import { TouchableOpacity, StyleSheet } from "react-native"
+import { TouchableOpacity, StyleSheet, Pressable } from "react-native"
 import { Text } from "./Themed"
 import Colors from "@/constants/Colors"
 import { useColorScheme } from '@/components/useColorScheme';
+import { forwardRef } from "react";
 
 interface ButtonProps {
     title: string
-    onPress: () => void
+    onPress?: () => void
     color?: string
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, color }) => {
+const Button: React.FC<ButtonProps> = forwardRef(({ title, onPress, color }, ref) => {
     const colorScheme = useColorScheme();
 
     const backgroundColor = color || Colors[colorScheme ?? 'light'].tint
@@ -23,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, color }) => {
             <Text style={styles.buttonText}>{title}</Text>
         </TouchableOpacity>
     )
-}
+})
 
 export default Button
 
