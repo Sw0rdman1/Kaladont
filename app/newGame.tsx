@@ -1,17 +1,21 @@
-import { Text, View } from '@/components/ui/Themed';
+import { KeyboardAvoidingView, Text, View } from '@/components/ui/Themed';
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TextInput } from 'react-native';
 
 
 export default function ModalScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
+  return (
+    <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1, width: 200, marginBottom: 20 }}
+        placeholder="Unesite ime igrača"
+        placeholderTextColor="gray"
+
+      />
+
+    </KeyboardAvoidingView>
   );
 }
 
@@ -20,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   title: {
     fontSize: 20,
