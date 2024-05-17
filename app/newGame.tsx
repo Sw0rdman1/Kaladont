@@ -8,7 +8,8 @@ import { Platform, StyleSheet, TextInput } from 'react-native';
 
 export default function ModalScreen() {
 
-  const [words, setWords] = useState<string[]>([])
+  const [words, setWords] = useState<string[]>(['IGRA'])
+  const lastWord = words[0]
 
   const newWordHandler = (word: string) => {
     if (!word) return;
@@ -19,7 +20,7 @@ export default function ModalScreen() {
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <WordsDisplay words={words} />
-      <WordInput newWordHandler={newWordHandler} />
+      <WordInput newWordHandler={newWordHandler} lastWord={lastWord} />
 
     </KeyboardAvoidingView>
   );

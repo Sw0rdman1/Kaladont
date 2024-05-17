@@ -13,6 +13,7 @@ const WordsDisplay: React.FC<Props> = ({ words }) => {
     const mainColor = Colors[colorScheme ?? 'light'].tint
     const secondaryColor = Colors[colorScheme ?? 'light'].text
 
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Reči</Text>
@@ -26,7 +27,7 @@ const WordsDisplay: React.FC<Props> = ({ words }) => {
             {words.slice(1).map((word, index) => (
                 <Text
                     key={index}
-                    style={[styles.word, { fontSize: 24 - (index + 1) * 3, color: secondaryColor }]}
+                    style={[styles.word, { fontSize: 26 - (index + 1) * 3, color: secondaryColor }]}
                 >
                     {word}
                 </Text>
@@ -44,10 +45,11 @@ const styles = StyleSheet.create({
         width: '100%',
         marginHorizontal: 30,
         flex: 1,
+        marginTop: 20,
 
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
     },
     separator: {
@@ -58,10 +60,10 @@ const styles = StyleSheet.create({
     lastWord: {
         fontSize: 40,
         fontWeight: '500',
-        marginBottom: 10,
+        marginBottom: 20,
     },
     word: {
-        marginBottom: 5,
+        marginBottom: 10,
         fontWeight: '400',
     }
 
