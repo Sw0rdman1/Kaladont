@@ -58,7 +58,7 @@ const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
                 <TextInput
                     style={[styles.input, { color: Colors[colorScheme ?? 'light'].text }]}
                     value={word}
-                    onChangeText={handleInputChange}
+                    onChangeText={(text) => handleInputChange(text.trim().toUpperCase())}
                     placeholder="Enter a word"
                     placeholderTextColor="gray"
                     autoCapitalize="characters"
