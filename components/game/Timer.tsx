@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed'
 
-const Timer = ({ timeInSeconds }: { timeInSeconds: number }) => {
-    const [time, setTime] = useState(timeInSeconds)
+interface Props {
+    timeLeft: number,
+    setTimeLeft: React.Dispatch<React.SetStateAction<number>>
+}
+
+const Timer: React.FC<Props> = ({ timeLeft, setTimeLeft }) => {
     const [error, setError] = useState<string | null>(null)
 
-    const displayedTime = time < 10 ? `0${time}` : time
+    const displayedTime = timeLeft < 10 ? `0${timeLeft}` : timeLeft
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (time === 0) return
-            setTime((prevTime) => prevTime - 1)
+            if (timeLeft === 0) return
+            setTimeLeft((prevTime) => prevTime - 1)
         }, 1000)
 
         return () => {
@@ -20,12 +24,12 @@ const Timer = ({ timeInSeconds }: { timeInSeconds: number }) => {
     }, [])
 
     useEffect(() => {
-        if (time === 0) {
+        if (timeLeft === 0) {
             // Handle timer completion
             console.log('Timer completed')
             setError('Vreme je isteklo!')
         }
-    }, [time])
+    }, [timeLeft])
 
     if (error) return <Text style={styles.error}>{error}</Text>
 

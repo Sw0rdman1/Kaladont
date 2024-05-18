@@ -8,10 +8,11 @@ import { checkIfWordExists } from '@/utils/wordUtils';
 
 interface Props {
     newWordHandler: (word: string) => void
-    lastWord: string
+    lastWord: string,
+    resetTimer: () => void
 }
 
-const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
+const WordInput: React.FC<Props> = ({ newWordHandler, lastWord, resetTimer }) => {
     const colorScheme = useColorScheme();
 
     const lastTwoLetters = lastWord.slice(-2)
@@ -48,6 +49,7 @@ const WordInput: React.FC<Props> = ({ newWordHandler, lastWord }) => {
 
         newWordHandler(word)
         setWord(lastTwoLetters)
+        resetTimer()
     }
 
     return (

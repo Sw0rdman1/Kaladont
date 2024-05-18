@@ -14,20 +14,24 @@ export default function NewGameScreen() {
   const firstWord = generateRandomWord().toUpperCase()
   const [words, setWords] = useState<string[]>([firstWord]);
   const lastWord = words[0]
+  const [timeLeft, setTimeLeft] = useState(parseInt(time ?? '30'))
+
+  const resetTimer = () => {
+    setTimeLeft(parseInt(time ?? '30'))
+  }
 
   const newWordHandler = (word: string) => {
     if (!word) return;
     setWords([word, ...words.slice(0, 4)]);
   }
 
-  if (!time) return null
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      <Timer timeInSeconds={parseInt(time)} />
+      <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
       <WordsDisplay words={words} />
-      <WordInput newWordHandler={newWordHandler} lastWord={lastWord} />
+      <WordInput newWordHandler={newWordHandler} lastWord={lastWord} resetTimer={resetTimer} />
 
     </KeyboardAvoidingView>
   );
