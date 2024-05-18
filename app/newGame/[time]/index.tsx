@@ -1,4 +1,5 @@
 import GameEndScreen from '@/components/game/GameEndScreen';
+import ScoreDisplay from '@/components/game/ScoreDisplay';
 import Timer from '@/components/game/Timer';
 import WordInput from '@/components/game/WordInput';
 import WordsDisplay from '@/components/game/WordsDisplay';
@@ -17,6 +18,18 @@ export default function NewGameScreen() {
   const lastWord = words[0]
   const [timeLeft, setTimeLeft] = useState(parseInt(time ?? '30'))
   const [error, setError] = useState<string | null>(null)
+
+  const [user1, setUser1] = useState({
+    avatar: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    name: 'Bozidar',
+    score: 0
+  })
+  const [user2, setUser2] = useState({
+    avatar: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+    name: 'Stojan',
+    score: 0
+  })
+
 
   const resetTimer = () => {
     setTimeLeft(parseInt(time ?? '30'))
@@ -41,6 +54,7 @@ export default function NewGameScreen() {
         <GameEndScreen errorMessage={error} resetGameHandler={resetGameHandler} />
         :
         <>
+          <ScoreDisplay user1={user1} user2={user2} />
           <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} setError={setError} />
           <WordsDisplay words={words} />
           <WordInput newWordHandler={newWordHandler} lastWord={lastWord} resetTimer={resetTimer} />
