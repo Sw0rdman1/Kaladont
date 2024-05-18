@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
 import { Text, View } from '../ui/Themed';
-import { checkIfWordExists } from '@/utils/wordCheck';
+import { checkIfWordExists } from '@/utils/wordUtils';
 
 interface Props {
     newWordHandler: (word: string) => void

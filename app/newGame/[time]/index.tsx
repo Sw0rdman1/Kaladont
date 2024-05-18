@@ -1,14 +1,17 @@
 import WordInput from '@/components/game/WordInput';
 import WordsDisplay from '@/components/game/WordsDisplay';
 import { KeyboardAvoidingView, Text, View } from '@/components/ui/Themed';
+import { generateRandomWord } from '@/utils/wordUtils';
+import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Platform, StyleSheet, TextInput } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 
-export default function ModalScreen() {
-
-  const [words, setWords] = useState<string[]>(['IGRA'])
+export default function NewGameScreen() {
+  const { time } = useLocalSearchParams<{ time: string }>();
+  const firstWord = generateRandomWord().toUpperCase()
+  const [words, setWords] = useState<string[]>([firstWord]);
   const lastWord = words[0]
 
   const newWordHandler = (word: string) => {

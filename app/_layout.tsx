@@ -52,7 +52,7 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="newGame" options={{ presentation: 'modal', headerTitle: "Nova partija" }} />
+        <Stack.Screen name="newGame/[time]/index" options={{ presentation: 'modal', headerTitle: "Nova partija" }} />
       </Stack>
     </ThemeProvider>
   );

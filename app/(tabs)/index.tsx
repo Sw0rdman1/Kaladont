@@ -16,7 +16,13 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <TimeSelect selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
-      <Link href="/newGame" asChild>
+      <Link
+        href={{
+          pathname: "newGame/[time]",
+          params: { time: selectedTime }
+        }}
+        asChild
+      >
         <Button title="Započni novu igru" />
       </Link>
       <OnlineUsers />
