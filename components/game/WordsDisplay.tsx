@@ -26,7 +26,9 @@ const WordsDisplay: React.FC<Props> = ({ words }) => {
             {words.slice(1).map((word, index) => (
                 <Text
                     key={index}
-                    style={[styles.word, { fontSize: 26 - (index + 1) * 3, color: secondaryColor }]}
+                    style={[styles.word,
+                    { fontSize: 22 - (index + 1) * 2, color: secondaryColor, opacity: 1 - (index + 1) * 0.1 }
+                    ]}
                 >
                     {word}
                 </Text>
