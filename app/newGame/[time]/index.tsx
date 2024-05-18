@@ -22,6 +22,12 @@ export default function NewGameScreen() {
     setTimeLeft(parseInt(time ?? '30'))
   }
 
+  const resetGameHandler = () => {
+    setWords([generateRandomWord().toUpperCase()])
+    setError(null)
+    resetTimer()
+  }
+
   const newWordHandler = (word: string) => {
     if (!word) return;
     setWords([word, ...words.slice(0, 4)]);
@@ -32,7 +38,7 @@ export default function NewGameScreen() {
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       {error ?
-        <GameEndScreen errorMessage={error} />
+        <GameEndScreen errorMessage={error} resetGameHandler={resetGameHandler} />
         :
         <>
           <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} setError={setError} />
