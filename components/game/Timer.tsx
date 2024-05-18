@@ -5,10 +5,10 @@ import { Text, View } from '../ui/Themed'
 interface Props {
     timeLeft: number,
     setTimeLeft: React.Dispatch<React.SetStateAction<number>>
+    setError: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-const Timer: React.FC<Props> = ({ timeLeft, setTimeLeft }) => {
-    const [error, setError] = useState<string | null>(null)
+const Timer: React.FC<Props> = ({ timeLeft, setTimeLeft, setError }) => {
 
     const displayedTime = timeLeft < 10 ? `0${timeLeft}` : timeLeft
 
@@ -31,7 +31,6 @@ const Timer: React.FC<Props> = ({ timeLeft, setTimeLeft }) => {
         }
     }, [timeLeft])
 
-    if (error) return <Text style={styles.error}>{error}</Text>
 
     return (
         <View style={styles.container}>

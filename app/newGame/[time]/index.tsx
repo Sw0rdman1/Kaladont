@@ -1,3 +1,4 @@
+import GameEndScreen from '@/components/game/GameEndScreen';
 import Timer from '@/components/game/Timer';
 import WordInput from '@/components/game/WordInput';
 import WordsDisplay from '@/components/game/WordsDisplay';
@@ -15,6 +16,7 @@ export default function NewGameScreen() {
   const [words, setWords] = useState<string[]>([firstWord]);
   const lastWord = words[0]
   const [timeLeft, setTimeLeft] = useState(parseInt(time ?? '30'))
+  const [error, setError] = useState<string | null>(null)
 
   const resetTimer = () => {
     setTimeLeft(parseInt(time ?? '30'))
@@ -29,9 +31,15 @@ export default function NewGameScreen() {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-      <WordsDisplay words={words} />
-      <WordInput newWordHandler={newWordHandler} lastWord={lastWord} resetTimer={resetTimer} />
+      {error ?
+        <GameEndScreen errorMessage={error} />
+        :
+        <>
+          <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} setError={setError} />
+          <WordsDisplay words={words} />
+          <WordInput newWordHandler={newWordHandler} lastWord={lastWord} resetTimer={resetTimer} />
+        </>
+      }
 
     </KeyboardAvoidingView>
   );
