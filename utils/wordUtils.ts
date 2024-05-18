@@ -5,6 +5,6 @@ export const checkIfWordExists = (word: string) => {
 }
 
 export const generateRandomWord = () => {
-    return words[Math.floor(Math.random() * words.length)]
+    return words[Math.floor(Math.random() * words.length)].toUpperCase()
 }
 

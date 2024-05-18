@@ -3,17 +3,17 @@ import { StyleSheet, Image } from 'react-native'
 import { Text, View } from '../ui/Themed';
 
 interface ScoreProps {
+    displayName: string;
     avatar: string;
-    name: string;
     score: number;
 }
 
-const Score: React.FC<ScoreProps> = ({ avatar, name, score }) => {
+const Score: React.FC<ScoreProps> = ({ avatar, displayName, score }) => {
     return (
         <View style={styles.scoreContainer}>
             <View style={styles.userInfo}>
                 <Image source={{ uri: avatar }} style={styles.avatar} />
-                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.name}>{displayName}</Text>
             </View>
             <Text style={styles.score}>{score}</Text>
         </View>
@@ -21,15 +21,15 @@ const Score: React.FC<ScoreProps> = ({ avatar, name, score }) => {
 }
 
 interface ScoreDisplayProps {
-    user1: ScoreProps;
-    user2: ScoreProps;
+    currentUser: ScoreProps;
+    opponent: ScoreProps;
 }
 
-const ScoreDisplay: React.FC<ScoreDisplayProps> = ({ user1, user2 }) => {
+const ScoreDisplay: React.FC<ScoreDisplayProps> = ({ currentUser, opponent }) => {
     return (
         <View style={styles.container}>
-            <Score avatar={user1.avatar} name={user1.name} score={user1.score} />
-            <Score avatar={user2.avatar} name={user2.name} score={user2.score} />
+            <Score avatar={currentUser.avatar} displayName={currentUser.displayName} score={currentUser.score} />
+            <Score avatar={opponent.avatar} displayName={opponent.displayName} score={opponent.score} />
         </View>
     )
 }

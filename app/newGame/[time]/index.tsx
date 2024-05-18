@@ -4,6 +4,7 @@ import Timer from '@/components/game/Timer';
 import WordInput from '@/components/game/WordInput';
 import WordsDisplay from '@/components/game/WordsDisplay';
 import { KeyboardAvoidingView, Text, View } from '@/components/ui/Themed';
+import { useUser } from '@/context/AppContext';
 import { generateRandomWord } from '@/utils/wordUtils';
 import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -13,30 +14,22 @@ import { Platform, StyleSheet } from 'react-native';
 
 export default function NewGameScreen() {
   const { time } = useLocalSearchParams<{ time: string }>();
-  const firstWord = generateRandomWord().toUpperCase()
+  const firstWord = generateRandomWord()
   const [words, setWords] = useState<string[]>([firstWord]);
-  const lastWord = words[0]
   const [timeLeft, setTimeLeft] = useState(parseInt(time ?? '30'))
   const [error, setError] = useState<string | null>(null)
 
-  const [user1, setUser1] = useState({
-    avatar: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
-    name: 'Bozidar',
-    score: 0
-  })
-  const [user2, setUser2] = useState({
-    avatar: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
-    name: 'Stojan',
-    score: 0
-  })
+  const [currentUserScore, setCurrentUserScore] = useState(0)
+  const [opponentScore, setOpponentScore] = useState(0)
 
+  const currentUser = useUser()
 
   const resetTimer = () => {
     setTimeLeft(parseInt(time ?? '30'))
   }
 
   const resetGameHandler = () => {
-    setWords([generateRandomWord().toUpperCase()])
+    setWords([generateRandomWord()])
     setError(null)
     resetTimer()
   }
@@ -54,10 +47,21 @@ export default function NewGameScreen() {
         <GameEndScreen errorMessage={error} resetGameHandler={resetGameHandler} />
         :
         <>
-          <ScoreDisplay user1={user1} user2={user2} />
+          <ScoreDisplay
+            currentUser={{
+              avatar: currentUser.avatar,
+              displayName: currentUser.displayName,
+              score: currentUserScore
+            }}
+            opponent={{
+              avatar: 'https://i.pravatar.cc/100',
+              displayName: 'Stojan',
+              score: opponentScore
+            }}
+          />
           <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} setError={setError} />
           <WordsDisplay words={words} />
-          <WordInput newWordHandler={newWordHandler} lastWord={lastWord} resetTimer={resetTimer} />
+          <WordInput newWordHandler={newWordHandler} lastWord={words[0]} resetTimer={resetTimer} />
         </>
       }
 
