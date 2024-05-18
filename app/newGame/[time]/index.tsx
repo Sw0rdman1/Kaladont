@@ -1,3 +1,4 @@
+import Timer from '@/components/game/Timer';
 import WordInput from '@/components/game/WordInput';
 import WordsDisplay from '@/components/game/WordsDisplay';
 import { KeyboardAvoidingView, Text, View } from '@/components/ui/Themed';
@@ -19,9 +20,12 @@ export default function NewGameScreen() {
     setWords([word, ...words.slice(0, 4)]);
   }
 
+  if (!time) return null
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <Timer timeInSeconds={parseInt(time)} />
       <WordsDisplay words={words} />
       <WordInput newWordHandler={newWordHandler} lastWord={lastWord} />
 

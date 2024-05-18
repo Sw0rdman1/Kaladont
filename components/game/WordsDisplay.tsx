@@ -16,7 +16,6 @@ const WordsDisplay: React.FC<Props> = ({ words }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Reči</Text>
             <View style={styles.separator} />
 
             <Text style={[styles.lastWord, { color: mainColor }]}>
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginHorizontal: 30,
         flex: 1,
-        marginTop: 20,
+        marginTop: 10,
 
     },
     title: {
