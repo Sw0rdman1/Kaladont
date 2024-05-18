@@ -43,7 +43,7 @@ export default function NewGameScreen() {
 
   const newWordHandler = (word: string) => {
     if (!word) return;
-    setWords([word, ...words.slice(0, 4)]);
+    setWords([word, ...words.slice(0, 3)]);
   }
 
 

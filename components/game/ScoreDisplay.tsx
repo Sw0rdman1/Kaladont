@@ -39,7 +39,7 @@ export default ScoreDisplay
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 5,
+        paddingVertical: 20,
         paddingHorizontal: 10,
         width: '100%',
         justifyContent: 'space-between',

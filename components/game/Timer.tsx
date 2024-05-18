@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     text: {
-        fontSize: 32,
+        fontSize: 30,
         fontWeight: 'bold'
     },
     error: {
