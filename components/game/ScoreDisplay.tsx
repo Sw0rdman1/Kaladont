@@ -1,8 +1,10 @@
 
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
+import { Image } from 'expo-image';
+import Avatar from '../ui/Avatar';
 
 interface ScoreProps {
     displayName: string;
@@ -17,7 +19,7 @@ const Score: React.FC<ScoreProps> = ({ avatar, displayName, score }) => {
     return (
         <View style={[styles.scoreContainer, { backgroundColor }]}>
             <View style={[styles.userInfo, { backgroundColor }]}>
-                <Image source={{ uri: avatar }} style={styles.avatar} />
+                <Avatar url={avatar} size={35} />
                 <Text style={styles.name}>{displayName}</Text>
             </View>
             <Text style={styles.score}>{score}</Text>
@@ -64,15 +66,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    avatar: {
-        width: 35,
-        height: 35,
-        borderRadius: 20,
-        marginRight: 8,
-    },
     name: {
         fontSize: 16,
         fontWeight: '600',
+        marginLeft: 8,
     },
     score: {
         fontSize: 28,
