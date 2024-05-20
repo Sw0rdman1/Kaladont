@@ -13,8 +13,8 @@ interface Props {
 
 const TimeContainer: React.FC<Props> = ({ isSelected, time, handleTimeSelect }) => {
     const colorScheme = useColorScheme();
-    const backgroundColor = isSelected ? Colors[colorScheme ?? 'light'].tint : "lightgrey"
-    const textColor = isSelected ? 'white' : 'black';
+    const backgroundColor = isSelected ? Colors[colorScheme ?? 'light'].tint : Colors[colorScheme ?? 'light'].background2;
+    const textColor = isSelected ? 'white' : Colors[colorScheme ?? 'light'].text;
 
     const handlePress = () => {
         handleTimeSelect(time);
@@ -24,7 +24,7 @@ const TimeContainer: React.FC<Props> = ({ isSelected, time, handleTimeSelect }) 
     return (
         <TouchableOpacity
             activeOpacity={0.8}
-            style={[styles.button, { backgroundColor }]}
+            style={[styles.button, { backgroundColor, shadowColor: Colors[colorScheme ?? 'light'].text }]}
             onPress={handlePress}
         >
             <Text style={[styles.text, { color: textColor }]}>
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         gap: 10,
+
     },
     button: {
         padding: 10,
@@ -94,6 +95,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     text: {
         fontWeight: 'bold',

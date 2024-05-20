@@ -1,6 +1,8 @@
 
 import { StyleSheet, Image } from 'react-native'
 import { Text, View } from '../ui/Themed';
+import { useColorScheme } from '@/components/useColorScheme';
+import Colors from '@/constants/Colors';
 
 interface ScoreProps {
     displayName: string;
@@ -9,9 +11,12 @@ interface ScoreProps {
 }
 
 const Score: React.FC<ScoreProps> = ({ avatar, displayName, score }) => {
+    const colorScheme = useColorScheme();
+    const backgroundColor = Colors[colorScheme ?? 'light'].background2
+
     return (
-        <View style={styles.scoreContainer}>
-            <View style={styles.userInfo}>
+        <View style={[styles.scoreContainer, { backgroundColor }]}>
+            <View style={[styles.userInfo, { backgroundColor }]}>
                 <Image source={{ uri: avatar }} style={styles.avatar} />
                 <Text style={styles.name}>{displayName}</Text>
             </View>
@@ -50,9 +55,10 @@ const styles = StyleSheet.create({
     scoreContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingHorizontal: 12,
         paddingVertical: 8,
-        gap: 12,
+        gap: 16,
+        borderRadius: 12,
     },
     userInfo: {
         flexDirection: 'row',
@@ -65,11 +71,11 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     name: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '600',
     },
     score: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold',
     },
 })
