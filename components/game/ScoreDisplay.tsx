@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
-import { Image } from 'expo-image';
 import Avatar from '../ui/Avatar';
 
 interface ScoreProps {
