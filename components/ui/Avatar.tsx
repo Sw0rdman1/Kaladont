@@ -1,4 +1,3 @@
-import { View } from './Themed';
 import { Image } from 'expo-image';
 
 interface AvatarProps {
